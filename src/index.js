@@ -102,7 +102,7 @@ function Game() {
 
   function jumpTo(step) {
     updateState({
-      ...initialState,
+      history: initialState.history,
       stepNumber: step,
       xIsNext: (step % 2) === 0
     })
