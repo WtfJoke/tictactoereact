@@ -82,7 +82,7 @@ function Game() {
     status = `Next player: ${state.xIsNext ? 'X' : 'O'}`;
   }
 
-  const moves = history.map((step, move) => {
+  const moves = history.map((_, move) => {
     const description = move ?
       `Go to move #${move}` :
       "Go to game start";
