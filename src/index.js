@@ -41,6 +41,34 @@ function Board(props) {
 }
 
 function Game() {
+
+  function handleCLick(i) {
+    const newHistory = history.slice(0, initialState.stepNumber + 1);
+    const next = initialState.xIsNext
+    const current = newHistory[newHistory.length -1]
+    const squares = current.squares.slice()
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = next ? 'X' : 'O';
+
+    updateState({
+      history: newHistory.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      xIsNext: !next,
+    });
+  }
+
+  function jumpTo(step) {
+    updateState({
+      history: initialState.history,
+      stepNumber: step,
+      xIsNext: (step % 2) === 0
+    })
+  }
+
   const [initialState, updateState] = useState(initializeState)
   const history = initialState.history
   const current = history[initialState.stepNumber]
@@ -79,35 +107,6 @@ function Game() {
       </div>
     </div>
   );
-
-  
-  function handleCLick(i) {
-    const newHistory = history.slice(0, initialState.stepNumber + 1);
-    const next = initialState.xIsNext
-    const current = newHistory[newHistory.length -1]
-    const squares = current.squares.slice()
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = next ? 'X' : 'O';
-
-    updateState({
-      history: newHistory.concat([{
-        squares: squares,
-      }]),
-      stepNumber: history.length,
-      xIsNext: !next,
-    });
-  }
-
-  function jumpTo(step) {
-    updateState({
-      history: initialState.history,
-      stepNumber: step,
-      xIsNext: (step % 2) === 0
-    })
-  }
-
 }
 
 function initializeState(props) {
