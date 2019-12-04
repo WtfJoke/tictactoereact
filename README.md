@@ -1,5 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Represents the [official Tic-Tac-Toe Tutorial of React](https://reactjs.org/tutorial/tutorial.htm).
+Instead of [Class-Components we use Functional-Components](https://reactjs.org/docs/components-and-props.html#function-and-class-components) with [Hooks](https://reactjs.org/docs/hooks-intro.html).
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Available Scripts
 
 In the project directory, you can run:
