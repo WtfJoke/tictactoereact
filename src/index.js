@@ -45,8 +45,8 @@ function Board(props) {
 function Game() {
 
   function handleCLick(i) {
-    const newHistory = history.slice(0, initialState.stepNumber + 1);
-    const next = initialState.xIsNext
+    const newHistory = history.slice(0, state.stepNumber + 1);
+    const next = state.xIsNext
     const current = newHistory[newHistory.length -1]
     const squares = current.squares.slice()
     if (calculateWinner(squares) || squares[i]) {
@@ -65,21 +65,21 @@ function Game() {
 
   function jumpTo(step) {
     updateState({
-      history: initialState.history,
+      history: state.history,
       stepNumber: step,
       xIsNext: (step % 2) === 0
     })
   }
 
-  const [initialState, updateState] = useState(initializeState)
-  const history = initialState.history
-  const current = history[initialState.stepNumber]
+  const [state, updateState] = useState(initializeState)
+  const history = state.history
+  const current = history[state.stepNumber]
   const winner = calculateWinner(current.squares)
   let status;
   if (winner) {
     status = `Winner: ${winner}`
   } else {
-    status = `Next player: ${initialState.xIsNext ? 'X' : 'O'}`;
+    status = `Next player: ${state.xIsNext ? 'X' : 'O'}`;
   }
 
   const moves = history.map((step, move) => {
