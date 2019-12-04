@@ -12,6 +12,14 @@ function Square(props) {
 
 
 function Board(props) {
+
+  function renderSquare(i) {
+    return <Square
+      value={props.squares[i]}
+      onClick={() => props.onClick(i)}
+    />;
+  }
+
   return (
     <div>
       <div className="board-row">
@@ -32,12 +40,6 @@ function Board(props) {
     </div>
   );
 
-  function renderSquare(i) {
-    return <Square
-      value={props.squares[i]}
-      onClick={() => props.onClick(i)}
-    />;
-  }
 }
 
 function Game() {
