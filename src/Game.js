@@ -3,46 +3,46 @@ import { Board } from './Board'
 
 export function Game() {
     function handleCLick(i) {
-        const newHistory = history.slice(0, state.stepNumber + 1)
-        const next = state.xIsNext
+        const newHistory = history.slice(0, stepNumber + 1)
         const current = newHistory[newHistory.length - 1]
         const squares = current.squares.slice()
         if (calculateWinner(squares) || squares[i]) {
             return
         }
-        squares[i] = next ? 'X' : 'O'
+        squares[i] = xIsNext ? 'X' : 'O'
+        updateStepNumber(newHistory.length)
+        updateIsXNextPlayer(!xIsNext)
         updateState({
             history: newHistory.concat([
                 {
                     squares: squares,
                 },
             ]),
-            stepNumber: newHistory.length,
-            xIsNext: !next,
         })
     }
+
     function jumpTo(step) {
+        updateStepNumber(step)
+        updateIsXNextPlayer(step % 2 === 0)
         updateState({
             history: state.history,
-            stepNumber: step,
-            xIsNext: step % 2 === 0,
         })
     }
+    const [stepNumber, updateStepNumber] = useState(0)
+    const [xIsNext, updateIsXNextPlayer] = useState(true)
     const [state, updateState] = useState({
         history: [
             {
                 squares: Array(9).fill(null),
             },
         ],
-        stepNumber: 0,
-        xIsNext: true,
     })
     const history = state.history
-    const current = history[state.stepNumber]
+    const current = history[stepNumber]
     const winner = calculateWinner(current.squares)
     const status = winner
         ? `Winner: ${winner}`
-        : `Next player: ${state.xIsNext ? 'X' : 'O'}`
+        : `Next player: ${xIsNext ? 'X' : 'O'}`
     const moves = history.map((_, moveIndex) => {
         const description = moveIndex
             ? `Go to move #${moveIndex}`
