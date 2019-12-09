@@ -12,32 +12,26 @@ export function Game() {
         squares[i] = xIsNext ? 'X' : 'O'
         updateStepNumber(newHistory.length)
         updateIsXNextPlayer(!xIsNext)
-        updateState({
-            history: newHistory.concat([
+        updateHistory(
+            newHistory.concat([
                 {
                     squares: squares,
                 },
-            ]),
-        })
+            ])
+        )
     }
 
     function jumpTo(step) {
         updateStepNumber(step)
         updateIsXNextPlayer(step % 2 === 0)
-        updateState({
-            history: state.history,
-        })
     }
     const [stepNumber, updateStepNumber] = useState(0)
     const [xIsNext, updateIsXNextPlayer] = useState(true)
-    const [state, updateState] = useState({
-        history: [
-            {
-                squares: Array(9).fill(null),
-            },
-        ],
-    })
-    const history = state.history
+    const [history, updateHistory] = useState([
+        {
+            squares: Array(9).fill(null),
+        },
+    ])
     const current = history[stepNumber]
     const winner = calculateWinner(current.squares)
     const status = winner
