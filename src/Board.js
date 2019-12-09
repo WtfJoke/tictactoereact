@@ -1,11 +1,9 @@
 import React from 'react'
 import { Square } from './Square'
 
-export function Board(props) {
+export function Board({ squares, onClick }) {
     const renderSquare = i => {
-        return (
-            <Square value={props.squares[i]} onClick={() => props.onClick(i)} />
-        )
+        return <Square value={squares[i]} onClick={() => onClick(i)} />
     }
     return (
         <div>
